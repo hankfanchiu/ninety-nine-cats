@@ -1,0 +1,67 @@
+<% if @cat.persisted? %>
+  <form action="<%= cat_url(@cat) %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+  <% submit_button_label = "Update" %>
+<% else %>
+  <form action="<%= cats_url %>" method="post">
+  <% submit_button_label = "Submit" %>
+<% end %>
+
+  <table>
+    <tr>
+      <td>
+        <label for="cat[name]">Name: </label>
+      </td>
+      <td>
+        <input type="text" name="cat[name]" value="<%= @cat.name %>">
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <label for="cat[sex]">Sex: </label>
+      </td>
+      <td>
+        <input type="radio" name="cat[sex]" value="M" <%= "checked" if @cat.sex == 'M' %>>
+          <label for="cat[sex]">Male</label>
+        <input type="radio" name="cat[sex]" value="F" <%= "checked" if @cat.sex == 'F' %>>
+          <label for="cat[sex]">Female</label>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <label for="cat[color]">Color: </label>
+      </td>
+      <td>
+        <select name="cat[color]" value="<%= @cat.color %>">
+          <option value="R" <%= "selected" if @cat.color == 'R' %>>Red</option>
+          <option value="O" <%= "selected" if @cat.color == 'O' %>>Orange</option>
+          <option value="Y" <%= "selected" if @cat.color == 'Y' %>>Yellow</option>
+          <option value="G" <%= "selected" if @cat.color == 'G' %>>Green</option>
+          <option value="B" <%= "selected" if @cat.color == 'B' %>>Blue</option>
+          <option value="I" <%= "selected" if @cat.color == 'I' %>>Indigo</option>
+          <option value="V" <%= "selected" if @cat.color == 'V' %>>Violet</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="cat[birth_date]">Birth Date: </label>
+      </td>
+      <td>
+        <input type="date" name="cat[birth_date]" value="<%= @cat.birth_date %>">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="cat[description]">Description: </label>
+      </td>
+      <td>
+        <textarea name="cat[description]" rows="8" cols="40"><%= @cat.description %></textarea>
+      </td>
+    </tr>
+  </table>
+
+  <input type="submit" value="<%= submit_button_label %>">
+</form>
