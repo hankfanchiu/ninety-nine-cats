@@ -1,8 +1,17 @@
 class Cat < ActiveRecord::Base
-  COLORS = %w(R O Y G B I V)
+  COLORS = {
+    "R" => "Red",
+    "O" => "Orange",
+    "Y" => "Yellow",
+    "G" => "Green",
+    "B" => "Blue",
+    "I" => "Indigo",
+    "V" => "Violet"
+  }
+
   validates :birth_date, :color, :name, :sex, :description, presence: true
   validates :sex, inclusion: { in: %w(M F) }
-  validates :color, inclusion: { in: COLORS }
+  validates :color, inclusion: { in: COLORS.keys }
   validate :birth_date_not_in_future
 
   has_many :cat_rental_requests, dependent: :destroy
@@ -15,6 +24,14 @@ class Cat < ActiveRecord::Base
 
   def sorted_requests
     cat_rental_requests.order(:start_date)
+  end
+
+  def display_sex
+    sex == "M" ? "Male" : "Female"
+  end
+
+  def display_color
+    COLORS[color]
   end
 
   private
