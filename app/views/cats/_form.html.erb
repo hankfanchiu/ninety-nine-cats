@@ -22,10 +22,13 @@
         <label for="cat[sex]">Sex: </label>
       </td>
       <td>
-        <input type="radio" name="cat[sex]" value="M" <%= "checked" if @cat.sex == 'M' %>>
-          <label for="cat[sex]">Male</label>
-        <input type="radio" name="cat[sex]" value="F" <%= "checked" if @cat.sex == 'F' %>>
-          <label for="cat[sex]">Female</label>
+        <% @cat.all_sexes.each do |sex_abbrev, sex| %>
+          <input type="radio"
+                name="cat[sex]"
+                value="<%= sex_abbrev %>"
+                <%= "checked" if @cat.sex == sex_abbrev %>>
+            <label for="cat[sex]"><%= sex %></label>
+        <% end %>
       </td>
     </tr>
 

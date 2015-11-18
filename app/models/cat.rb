@@ -9,8 +9,10 @@ class Cat < ActiveRecord::Base
     "V" => "Violet"
   }
 
+  SEXES = { "M" => "Male", "F" => "Female" }
+
   validates :birth_date, :color, :name, :sex, :description, presence: true
-  validates :sex, inclusion: { in: %w(M F) }
+  validates :sex, inclusion: { in: SEXES.keys }
   validates :color, inclusion: { in: COLORS.keys }
   validate :birth_date_not_in_future
 
@@ -27,7 +29,7 @@ class Cat < ActiveRecord::Base
   end
 
   def display_sex
-    sex == "M" ? "Male" : "Female"
+    SEXES[sex]
   end
 
   def display_color
@@ -36,6 +38,10 @@ class Cat < ActiveRecord::Base
 
   def all_colors
     COLORS
+  end
+
+  def all_sexes
+    SEXES
   end
 
   private
