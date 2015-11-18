@@ -41,12 +41,14 @@
       <td>
         <%= request.status %>
       </td>
+      <% if request.status == 'PENDING' %>
       <td>
-        <% if request.status == 'PENDING' %>
           <%= button_to "Approve", cat_rental_request_approve_url(request.cat_id) %>
-          <%= button_to "Denied", cat_rental_request_deny_url(request.cat_id) %>
-        <% end %>
       </td>
+      <td>
+          <%= button_to "Deny", cat_rental_request_deny_url(request.cat_id) %>
+      </td>
+      <% end %>
     </tr>
     <% end %>
 </table>
