@@ -1,5 +1,6 @@
 class CatRentalRequest < ActiveRecord::Base
   STATUSES = %w(PENDING APPROVED DENIED)
+
   validates :cat_id, :start_date, :end_date, presence: true
   validates :status, inclusion: { in: STATUSES }
   validate :request_does_not_overlap_with_approved
@@ -8,15 +9,17 @@ class CatRentalRequest < ActiveRecord::Base
 
   def approve!
     transaction do
-      overlapping_pending_requests.each do |overlap|
-        overlap.update(status: 'DENIED')
-      end
+      overlapping_pending_requests.update_all(status: 'DENIED')
       self.update(status: 'APPROVED')
     end
   end
 
   def deny!
     self.update(status: 'DENIED')
+  end
+
+  def denied?
+    self.status == "DENIED"
   end
 
   def pending?
@@ -43,6 +46,8 @@ class CatRentalRequest < ActiveRecord::Base
   end
 
   def request_does_not_overlap_with_approved
+    return if self.denied?
+
     unless overlapping_approved_requests.empty?
       errors[:request] << "has time overlap with an approved request."
     end
