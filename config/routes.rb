@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :cat_rental_requests, path: :requests, as: :requests, only: [:new, :create] do
-    post '/approve', to: 'cat_rental_requests#approve'
-    post '/deny', to: 'cat_rental_requests#deny'
+    post 'approve', on: :member
+    post 'deny', on: :member
   end
 end
