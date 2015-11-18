@@ -34,6 +34,10 @@ class Cat < ActiveRecord::Base
     COLORS[color]
   end
 
+  def all_colors
+    COLORS
+  end
+
   private
   def birth_date_not_in_future
     if !birth_date.empty? && (Date.parse(birth_date) > Date.today)

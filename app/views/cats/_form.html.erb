@@ -35,13 +35,11 @@
       </td>
       <td>
         <select name="cat[color]" value="<%= @cat.color %>">
-          <option value="R" <%= "selected" if @cat.color == 'R' %>>Red</option>
-          <option value="O" <%= "selected" if @cat.color == 'O' %>>Orange</option>
-          <option value="Y" <%= "selected" if @cat.color == 'Y' %>>Yellow</option>
-          <option value="G" <%= "selected" if @cat.color == 'G' %>>Green</option>
-          <option value="B" <%= "selected" if @cat.color == 'B' %>>Blue</option>
-          <option value="I" <%= "selected" if @cat.color == 'I' %>>Indigo</option>
-          <option value="V" <%= "selected" if @cat.color == 'V' %>>Violet</option>
+          <% @cat.all_colors.each do |color_code, color| %>
+            <option value="<%= color_code %>" <%= "selected" if @cat.color == color_code %>>
+              <%= color %>
+            </option>
+          <% end %>
         </select>
       </td>
     </tr>
