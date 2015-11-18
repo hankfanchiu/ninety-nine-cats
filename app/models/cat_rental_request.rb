@@ -23,6 +23,7 @@ class CatRentalRequest < ActiveRecord::Base
     self.status == "PENDING"
   end
 
+  private
   def overlapping_requests
     dates = { start_date: self.start_date, end_date: self.end_date }
     same_cat = self.class.where(cat_id: self.cat_id)
