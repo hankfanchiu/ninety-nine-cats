@@ -43,10 +43,10 @@
       </td>
       <% if request.status == 'PENDING' %>
       <td>
-          <%= button_to "Approve", cat_rental_request_approve_url(request.cat_id) %>
+          <%= button_to "Approve", cat_rental_request_approve_url(request.id) %>
       </td>
       <td>
-          <%= button_to "Deny", cat_rental_request_deny_url(request.cat_id) %>
+          <%= button_to "Deny", cat_rental_request_deny_url(request.id) %>
       </td>
       <% end %>
     </tr>
