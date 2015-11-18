@@ -19,6 +19,10 @@ class CatRentalRequest < ActiveRecord::Base
     self.update(status: 'DENIED')
   end
 
+  def pending?
+    self.status == "PENDING"
+  end
+
   def overlapping_requests
     dates = { start_date: self.start_date, end_date: self.end_date }
     same_cat = self.class.where(cat_id: self.cat_id)
