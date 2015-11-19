@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       login_user!(@user)
       redirect_to cats_url
     else
-      flash.now[:errors] = "Login failed"
+      flash.now[:errors] = ["Login failed!"]
       render :login
     end
   end

@@ -1,6 +1,7 @@
 <h1>Login</h1>
 
 <% username = (@user ? @user.username : "") %>
+<%= render "shared/errors" %>
 
 <form action="<%= session_url %>", method="post">
   <table>
