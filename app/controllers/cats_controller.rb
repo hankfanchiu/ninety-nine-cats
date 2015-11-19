@@ -1,4 +1,5 @@
 class CatsController < ApplicationController
+  before_action :ensure_logged_in_to_register_cat, only: [:new, :create]
   before_action :ensure_current_user_is_cat_owner, only: [:edit, :update]
 
   def index
@@ -15,7 +16,6 @@ class CatsController < ApplicationController
       render :new
     end
   end
-
 
   def edit
     @cat = Cat.find(params[:id])
@@ -46,5 +46,9 @@ class CatsController < ApplicationController
   def cat_params
     attributes = [:name, :birth_date, :color, :sex, :description]
     params.require(:cat).permit(attributes)
+  end
+
+  def ensure_logged_in_to_register_cat
+    redirect_to new_session_url unless current_user
   end
 end

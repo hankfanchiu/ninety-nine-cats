@@ -1,0 +1,22 @@
+  <tr>
+    <td>
+      <%= request.requester.username %>
+    </td>
+    <td>
+      <%= request.start_date %>
+    </td>
+    <td>
+      <%= request.end_date %>
+    </td>
+    <td>
+      <%= request.status.capitalize %>
+    </td>
+    <% if cat.owner == current_user && request.pending? %>
+    <td>
+        <%= button_to "Approve", approve_request_url(request.id) %>
+    </td>
+    <td>
+        <%= button_to "Deny", deny_request_url(request.id) %>
+    </td>
+    <% end %>
+  </tr>

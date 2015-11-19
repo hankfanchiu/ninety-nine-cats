@@ -9,3 +9,11 @@ CatRentalRequest.create!(cat_id: 6, user_id: 2, start_date: "2015-11-11", end_da
 CatRentalRequest.create!(cat_id: 6, user_id: 2, start_date: "2015-10-20", end_date: "2015-10-30", status: "APPROVED")
 CatRentalRequest.create!(cat_id: 1, user_id: 2, start_date: "2014-3-20", end_date: "2014-3-30", status: "APPROVED")
 CatRentalRequest.create!(cat_id: 3, user_id: 2, start_date: "2013-1-5", end_date: "2013-2-5", status: "DENIED")
+
+user1 = User.new(username: "owner@test.com")
+user1.password = "password"
+user1.save!
+
+user2 = User.new(username: "renter@test.com")
+user2.password = "password"
+user2.save!

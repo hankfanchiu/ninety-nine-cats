@@ -9,10 +9,27 @@
 <body>
 
 <% if current_user %>
-  <div><%= current_user.username %></div>
-  <div><%= button_to "Logout", session_url, method: :delete %></div>
+  <table>
+    <tr>
+      <td>
+        <%= current_user.username %>
+      </td>
+      <td>
+        <%= button_to "Logout", session_url, method: :delete %>
+      </td>
+    </tr>
+  </table>
 <% else %>
-  <div><%= button_to "Login", new_session_url, method: :get %></div>
+  <table>
+    <tr>
+      <td>
+        <%= button_to "Sign up", new_user_url, method: :get %>
+      </td>
+      <td>
+        <%= button_to "Login", new_session_url, method: :get %>
+      </td>
+    </tr>
+  </table>
 <% end %>
 
 <%= yield %>
