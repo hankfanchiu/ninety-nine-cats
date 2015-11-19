@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :cats, dependent: :destroy
+
+  has_many :requests,
+    class_name: "CatRentalRequest",
+    foreign_key: :user_id
 end

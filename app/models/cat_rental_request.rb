@@ -8,6 +8,10 @@ class CatRentalRequest < ActiveRecord::Base
 
   belongs_to :cat
 
+  belongs :requester,
+    class_name: "User",
+    foreign_key: :user_id
+
   def approve!
     transaction do
       overlapping_pending_requests.update_all(status: 'DENIED')
