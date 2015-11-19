@@ -9,11 +9,11 @@
   </tr>
   <tr>
     <td>Color:</td>
-    <td><%= @cat.display_color %></td>
+    <td><%= Cat::COLORS[@cat.color] %></td>
   </tr>
   <tr>
     <td>Sex:</td>
-    <td><%= @cat.display_sex %></td>
+    <td><%= Cat::SEXES[@cat.sex] %></td>
   </tr>
   <tr>
     <td>Description:</td>
@@ -23,32 +23,30 @@
 
 <h3>Rental Requests</h3>
 <table>
-  <th>Start Date:</th>
-  <th>&nbsp;&nbsp;&nbsp;</th>
-  <th>End Date:</th>
-  <th>&nbsp;&nbsp;&nbsp;</th>
-  <th>Status:</th>
+  <tr>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Status</th>
+  </tr>
   <% @cat.sorted_requests.each do |request| %>
-    <tr>
-      <td>
-        <%= request.start_date %>
-      </td>
-      <td></td>
-      <td>
-        <%= request.end_date %>
-      </td>
-      <td></td>
-      <td>
-        <%= request.status.capitalize %>
-      </td>
-      <% if request.pending? %>
-      <td>
-          <%= button_to "Approve", request_approve_url(request.id) %>
-      </td>
-      <td>
-          <%= button_to "Deny", request_deny_url(request.id) %>
-      </td>
-      <% end %>
-    </tr>
+  <tr>
+    <td>
+      <%= request.start_date %>
+    </td>
+    <td>
+      <%= request.end_date %>
+    </td>
+    <td>
+      <%= request.status.capitalize %>
+    </td>
+    <% if request.pending? %>
+    <td>
+        <%= button_to "Approve", approve_request_url(request.id) %>
+    </td>
+    <td>
+        <%= button_to "Deny", deny_request_url(request.id) %>
+    </td>
     <% end %>
+  </tr>
+  <% end %>
 </table>
