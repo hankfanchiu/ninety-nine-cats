@@ -1,16 +1,25 @@
 class CatsController < ApplicationController
+  before_action :ensure_current_user_is_cat_owner, only: [:edit, :update]
+
   def index
     @cats = Cat.all
     render :index
   end
 
   def create
-    @cat = Cat.new(cat_params)
+    @cat = current_user.cats.new(cat_params)
     if @cat.save
       render :show
     else
+      flash.now[:errors] = @cat.errors.full_messages
       render :new
     end
+  end
+
+
+  def edit
+    @cat = Cat.find(params[:id])
+    render :edit
   end
 
   def new
@@ -18,26 +27,18 @@ class CatsController < ApplicationController
     render :new
   end
 
-  def destroy
-    # redirect
-  end
-
   def show
     @cat = Cat.find(params[:id])
     render :show
   end
 
-  def edit
-    @cat = Cat.find(params[:id])
-    render :edit
-  end
-
   def update
     @cat = Cat.find(params[:id])
     if @cat.update(cat_params)
-      render :show
+      redirect_to cat_url(@cat)
     else
-      redirect_to edit_cat_url(@cat)
+      flash.now[:errors] = @cat.errors.full_messages
+      render :edit
     end
   end
 
