@@ -16,6 +16,10 @@ class Cat < ActiveRecord::Base
   validates :color, inclusion: COLORS.keys
   validate :birth_date_not_in_future
 
+  belongs_to :owner,
+    class_name: "User",
+    foreign_key: :user_id
+
   has_many :cat_rental_requests, dependent: :destroy
 
   def age

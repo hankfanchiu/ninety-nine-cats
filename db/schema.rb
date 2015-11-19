@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119051335) do
+ActiveRecord::Schema.define(version: 20151119051744) do
 
   create_table "cat_rental_requests", force: :cascade do |t|
     t.integer  "cat_id",                         null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20151119051335) do
     t.text     "description",           null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.integer  "user_id",               null: false
   end
 
   create_table "users", force: :cascade do |t|
