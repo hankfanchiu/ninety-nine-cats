@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     foreign_key: :user_id
 
   def self.find_by_credentials(username, password)
-    user = self.class.find_by(username: username)
+    user = self.find_by(username: username)
 
     if user
       user.is_password?(password) ? user : nil
