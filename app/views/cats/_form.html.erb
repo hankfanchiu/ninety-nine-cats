@@ -1,6 +1,6 @@
-<% action = (cat.persisted? ? cat_url(cat) : cats_url) %>
-<% method = (cat.persisted? ? :patch : :post) %>
-<% submit_text = (cat.persisted? ? "Update" : "Submit") %>
+<% action = (@cat.persisted? ? cat_url(@cat) : cats_url) %>
+<% method = (@cat.persisted? ? :patch : :post) %>
+<% submit_text = (@cat.persisted? ? "Update" : "Submit") %>
 
 <form action="<%= action %>" method="post">
   <input type="hidden" name="_method" value="<%= method %>">
