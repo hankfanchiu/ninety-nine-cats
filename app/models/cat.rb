@@ -11,7 +11,16 @@ class Cat < ActiveRecord::Base
 
   SEXES = { "M" => "Male", "F" => "Female" }
 
-  validates :birth_date, :color, :name, :sex, :description, presence: true
+  validates(
+    :birth_date,
+    :color,
+    :name,
+    :sex,
+    :description,
+    :user_id,
+    presence: true
+    )
+
   validates :sex, inclusion: SEXES.keys
   validates :color, inclusion: COLORS.keys
   validate :birth_date_not_in_future

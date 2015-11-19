@@ -1,7 +1,7 @@
 class CatRentalRequest < ActiveRecord::Base
   STATUSES = %w(PENDING APPROVED DENIED)
 
-  validates :cat_id, :start_date, :end_date, presence: true
+  validates :cat_id, :start_date, :end_date, :user_id, presence: true
   validates :status, inclusion: STATUSES
   validate :request_does_not_overlap_with_approved
   validate :start_date_comes_before_end_date
