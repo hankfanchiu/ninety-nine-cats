@@ -15,6 +15,10 @@ class CatRentalRequest < ActiveRecord::Base
     end
   end
 
+  def approved?
+    self.status == "APPROVED"
+  end
+
   def deny!
     self.update(status: 'DENIED')
   end
