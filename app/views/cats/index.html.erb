@@ -1,11 +1,13 @@
 <h1>All Cats!</h1>
 
-<ul>
+<table>
   <% @cats.each do |cat| %>
-    <li>
-      <%= link_to cat.name, cat_url(cat) %> : <%= cat.description %>
-    </li>
+    <tr>
+      <td>
+        <%= link_to cat.name, cat_url(cat) %>: <%= cat.description %>
+      </td>
+    </tr>
   <% end %>
-</ul>
-
+</table>
+<br/>
 <%= link_to "Register your cat", new_cat_url %>

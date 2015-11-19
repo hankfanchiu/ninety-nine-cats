@@ -8,7 +8,7 @@ class CatRentalRequest < ActiveRecord::Base
 
   belongs_to :cat
 
-  belongs :requester,
+  belongs_to :requester,
     class_name: "User",
     foreign_key: :user_id
 
