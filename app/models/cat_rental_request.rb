@@ -2,8 +2,9 @@ class CatRentalRequest < ActiveRecord::Base
   STATUSES = %w(PENDING APPROVED DENIED)
 
   validates :cat_id, :start_date, :end_date, presence: true
-  validates :status, inclusion: { in: STATUSES }
+  validates :status, inclusion: STATUSES
   validate :request_does_not_overlap_with_approved
+  validate :start_date_comes_before_end_date
 
   belongs_to :cat
 
@@ -28,13 +29,12 @@ class CatRentalRequest < ActiveRecord::Base
 
   private
   def overlapping_requests
-    dates = { start_date: self.start_date, end_date: self.end_date }
-    same_cat = self.class.where(cat_id: self.cat_id)
-    overlap = same_cat.where(<<-SQL, dates)
-      (start_date BETWEEN :start_date AND :end_date)
-      OR (end_date BETWEEN :start_date AND :end_date)
-    SQL
-    overlap.where.not(id: self.id)
+    self.class
+      .where("(:id IS NULL) OR (id != :id)", id: self.id)
+      .where(cat_id: self.cat_id)
+      .where.not(<<-SQL, start_date: self.start_date, end_date: self.end_date)
+        (start_date > :end_date) OR (end_date < :start_date)
+      SQL
   end
 
   def overlapping_pending_requests
@@ -49,7 +49,13 @@ class CatRentalRequest < ActiveRecord::Base
     return if self.denied?
 
     unless overlapping_approved_requests.empty?
-      errors[:request] << "has time overlap with an approved request."
+      errors[:request] << "has time overlap with an approved request"
     end
+  end
+
+  def start_date_comes_before_end_date
+    return if self.start_date < self.end_date
+    errors[:start_date] << "must come before end date"
+    errors[:end_date] << "must come after start date"
   end
 end
